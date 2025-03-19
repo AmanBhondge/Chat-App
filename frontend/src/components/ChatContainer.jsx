@@ -58,9 +58,7 @@ const ChatContainer = () => {
               <div className="size-10 rounded-full border">
                 <img
                   src={
-                    message.senderId === authUser._id
-                      ? authUser.profilePic || "/avatar.png"
-                      : selectedUser.profilePic || "/avatar.png"
+                   "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
                   }
                   alt="profile pic"
                 />
@@ -74,8 +72,7 @@ const ChatContainer = () => {
             <div className="chat-bubble flex flex-col">
               {message.image && (
                 <img
-                  src={message.image}
-                  alt="Attachment"
+                  src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
                   className="sm:max-w-[200px] rounded-md mb-2"
                 />
               )}

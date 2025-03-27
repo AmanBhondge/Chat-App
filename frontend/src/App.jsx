@@ -20,12 +20,13 @@ const App = () => {
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);;
 
+  // Wait until auth check completes
   if (isCheckingAuth) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader className="size-10 animate-spin" />
+        <Loader className="w-10 h-10 animate-spin" />
       </div>
     );
   }
@@ -35,34 +36,33 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        {/* If not checking auth and no user is found, redirect to login */}
+        {/* Only allow access after auth check */}
         <Route
           path="/"
-          element={authUser ? <HomePage /> : <Navigate to="/login" />}
+          element={authUser ? <HomePage /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/login"
-          element={!authUser ? <LoginPage /> : <Navigate to="/home" />}
+          element={!authUser ? <LoginPage /> : <Navigate to="/" replace />}
         />
         <Route
           path="/signup"
-          element={!authUser ? <SignUpPage /> : <Navigate to="/home" />}
+          element={!authUser ? <SignUpPage /> : <Navigate to="/" replace />}
         />
         <Route
           path="/home"
-          element={authUser ? <HomePage /> : <Navigate to="/login" />}
+          element={authUser ? <HomePage /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/settings"
-          element={authUser ? <SettingsPage /> : <Navigate to="/login" />}
+          element={authUser ? <SettingsPage /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/profile"
-          element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+          element={authUser ? <ProfilePage /> : <Navigate to="/login" replace />}
         />
-
-        {/* Catch-all: Redirect to login if unauthorized */}
-        <Route path="*" element={<Navigate to={authUser ? "/home" : "/login"} />} />
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to={authUser ? "/home" : "/login"} replace />} />
       </Routes>
 
       <Toaster />
